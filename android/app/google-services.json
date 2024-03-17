@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1092559654910",
+    "project_id": "fawran-966fe",
+    "storage_bucket": "fawran-966fe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092559654910:android:1b8b9322cbc47f569d7aaf",
+        "android_client_info": {
+          "package_name": "com.fa9ran.fa9ran"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092559654910-1sdpkimt3b1sk9n0gla7l4lqtj0npgho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fa9ran.fa9ran",
+            "certificate_hash": "fc1a52ce6550c107bef281eeb2f6d611575956a5"
+          }
+        },
+        {
+          "client_id": "1092559654910-rdr04tu65m1oi6e3r9fljecu8spash0s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtEALxMFd8wa47xmcU4x-nN21fPv_pJAY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092559654910-khb8baj0peblt45kpf6lqjh1pjurjmru.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1092559654910-bfhdo5kjvo1dqe4a1pfgllpjji27nbkb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fa9ran"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
