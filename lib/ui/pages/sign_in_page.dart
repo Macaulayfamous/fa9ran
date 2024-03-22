@@ -2,6 +2,7 @@ import 'package:fa9ran/controllers/auth_controller.dart';
 import 'package:fa9ran/models/social_model.dart';
 import 'package:fa9ran/ui/pages/forgot_password_page.dart';
 import 'package:fa9ran/ui/pages/home_page.dart';
+import 'package:fa9ran/ui/pages/main_page.dart';
 import 'package:fa9ran/ui/pages/sign_up_page.dart';
 import 'package:fa9ran/ui/widgets/social_items.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
       ///
       Future.delayed(Duration.zero, () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const HomePage();
+          return const MainPage();
         }));
 
         //we want to show a message to the user to tell them they have logged in
@@ -51,6 +52,7 @@ class _SignInPageState extends State<SignInPage> {
       Future.delayed(Duration.zero, () {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
+            backgroundColor: const Color(0xffE41937),
             content: Text(res),
           ),
         );

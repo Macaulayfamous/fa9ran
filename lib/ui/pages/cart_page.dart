@@ -1,4 +1,5 @@
 import 'package:fa9ran/models/checked_model.dart';
+import 'package:fa9ran/provider/location_provider.dart';
 import 'package:fa9ran/provider/product_provider.dart';
 
 import 'package:fa9ran/ui/pages/check_out_page.dart';
@@ -36,7 +37,6 @@ class _CartPageState extends ConsumerState<CartPage>
   }
 
   Widget header() {
-    final _cartProvider = ref.read(cartProvider.notifier);
     final cartData = ref.watch(cartProvider);
     return AnimationConfiguration.staggeredList(
       position: 0,
@@ -114,13 +114,16 @@ class _CartPageState extends ConsumerState<CartPage>
                               height: 15.75,
                               fit: BoxFit.cover,
                             ),
-                            const Text(
-                              ' Shipping to default address',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14,
-                                overflow: TextOverflow.ellipsis,
+                            Container(
+                              width: 225,
+                              child: Text(
+                                'Shipping to ${ref.read(locationProvider).locationData['address']}',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ),
                             Image.asset(
@@ -666,6 +669,7 @@ class _CartPageState extends ConsumerState<CartPage>
               height: 47.5,
               child: TextButton(
                 onPressed: () {
+                  print(ref.watch(locationProvider).locationData['address']);
                   Navigator.push(
                     context,
                     MaterialPageRoute(

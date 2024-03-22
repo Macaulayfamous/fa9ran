@@ -4,7 +4,6 @@ import 'package:fa9ran/controllers/auth_controller.dart';
 import 'package:fa9ran/controllers/banner.dart';
 import 'package:fa9ran/controllers/category_controller.dart';
 import 'package:fa9ran/controllers/discount_banner_controller.dart';
-import 'package:fa9ran/ui/pages/main_page.dart';
 import 'package:fa9ran/ui/pages/splash_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

@@ -1,8 +1,46 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fa9ran/provider/user_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-class EditProfilePage extends StatelessWidget {
+class EditProfilePage extends ConsumerStatefulWidget {
   const EditProfilePage({super.key});
+
+  @override
+  _EditProfilePageState createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends ConsumerState<EditProfilePage> {
+  bool _isLoading = false;
+  final TextEditingController _firstNameController = TextEditingController();
+
+  final TextEditingController _lastNameController = TextEditingController();
+
+  final TextEditingController _countryController = TextEditingController();
+
+  final TextEditingController _phoneController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // You can access inherited widgets here
+    storeDetailsProvider();
+  }
+
+  void storeDetailsProvider() {
+    var currentUserData = ref.watch(currentUserProvider).currentUserData;
+
+    _firstNameController.text = currentUserData['firstName'] ?? '';
+    _lastNameController.text = currentUserData['lastName'] ?? '';
+    _countryController.text = currentUserData['country'] ?? '';
+    _phoneController.text = currentUserData['phoneNumber'] ?? '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +87,27 @@ class EditProfilePage extends StatelessWidget {
           ),
         ),
       );
+    }
+//update user profile
+
+    void updateProfiel() async {
+      setState(() {
+        _isLoading = true;
+      });
+      await FirebaseFirestore.instance
+          .collection('buyers')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'firstName': _firstNameController.text,
+        'lastName': _lastNameController.text,
+        'phoneNumber': _phoneController.text,
+        'country': _countryController.text,
+      }).whenComplete(() {
+        setState(() {
+          _isLoading = false;
+          showSuccessDialog();
+        });
+      });
     }
 
     Widget header() {
@@ -99,7 +158,7 @@ class EditProfilePage extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.only(top: 25, bottom: 105),
         child: Container(
-          height: 487.5,
+          height: 474,
           width: 375,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -139,9 +198,9 @@ class EditProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: 13,
                   ),
-                  const Text(
-                    'mostafagamalzakishaban@gmail.com',
-                    style: TextStyle(
+                  Text(
+                    ref.read(currentUserProvider).currentUserData['email'],
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -166,6 +225,7 @@ class EditProfilePage extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   TextFormField(
+                    controller: _firstNameController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                       enabledBorder: const UnderlineInputBorder(
@@ -173,7 +233,7 @@ class EditProfilePage extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                      hintText: 'Mostafa',
+                      hintText: '',
                       hintStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -210,6 +270,7 @@ class EditProfilePage extends StatelessWidget {
                     ),
                   ),
                   TextFormField(
+                    controller: _lastNameController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                       enabledBorder: const UnderlineInputBorder(
@@ -217,7 +278,7 @@ class EditProfilePage extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                      hintText: 'Shaban',
+                      hintText: '',
                       hintStyle: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
@@ -251,6 +312,7 @@ class EditProfilePage extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   TextFormField(
+                    controller: _phoneController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                       enabledBorder: const UnderlineInputBorder(
@@ -284,44 +346,44 @@ class EditProfilePage extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    'Gendre',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  TextFormField(
-                    cursorColor: Colors.red,
-                    decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      hintText: 'Man',
-                      hintStyle: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red),
-                      ),
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 18.5,
-                        ),
-                      ),
-                    ),
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                  // const Text(
+                  //   'Gendre',
+                  //   style: TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 12,
+                  //       fontWeight: FontWeight.w500),
+                  // ),
+                  // TextFormField(
+                  //   cursorColor: Colors.red,
+                  //   decoration: InputDecoration(
+                  //     enabledBorder: const UnderlineInputBorder(
+                  //       borderSide: BorderSide(
+                  //         color: Colors.grey,
+                  //       ),
+                  //     ),
+                  //     hintText: 'Man',
+                  //     hintStyle: const TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 14,
+                  //       fontWeight: FontWeight.w700,
+                  //     ),
+                  //     focusedBorder: const UnderlineInputBorder(
+                  //       borderSide: BorderSide(color: Colors.red),
+                  //     ),
+                  //     suffixIcon: IconButton(
+                  //       onPressed: () {},
+                  //       icon: const Icon(
+                  //         Icons.edit,
+                  //         size: 18.5,
+                  //       ),
+                  //     ),
+                  //   ),
+                  //   style: const TextStyle(
+                  //     color: Colors.black,
+                  //     fontSize: 14,
+                  //     fontWeight: FontWeight.w700,
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -333,6 +395,7 @@ class EditProfilePage extends StatelessWidget {
                         fontWeight: FontWeight.w500),
                   ),
                   TextFormField(
+                    controller: _countryController,
                     cursorColor: Colors.red,
                     decoration: InputDecoration(
                       enabledBorder: const UnderlineInputBorder(
@@ -403,7 +466,7 @@ class EditProfilePage extends StatelessWidget {
                   width: 300,
                   child: TextButton(
                     onPressed: () {
-                      showSuccessDialog();
+                      updateProfiel();
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: const Color(0xffE41937),
@@ -411,14 +474,18 @@ class EditProfilePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(9),
                       ),
                     ),
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: _isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            'Save',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 ),
               ],

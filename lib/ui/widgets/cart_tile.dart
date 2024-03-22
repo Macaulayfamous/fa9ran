@@ -23,7 +23,7 @@ class CartTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 190,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -49,77 +49,88 @@ class CartTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 47.5,
-                ),
-                Text(
-                  name, // Use the provided name
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 47.5,
                   ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                Text(
-                  '\$$price', // Use the provided price
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(
-                  height: 1.5,
-                ),
-                Text(
-                  'Model: $model',
-                  style: const TextStyle(
-                      color: Color(0xff868D94),
-                      fontSize: 11.5,
-                      fontWeight: FontWeight.w500,
-                      overflow: TextOverflow.ellipsis),
-                ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      height: 22,
-                    ),
-                    Container(
-                      height: 15,
-                      width: 15,
-                      decoration: const BoxDecoration(
-                        color: Color(0xffE41937),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: Image.asset(
-                          'assets/check.png',
-                          height: 11.75,
-                          width: 11.75,
-                          color: Colors.white,
+                  Flexible(
+                    child: Container(
+                      width: 90,
+                      padding: EdgeInsets.only(right: 13.0),
+                      child: Text(
+                        name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          fontFamily: 'Roboto',
+                          color: new Color(0xFF212121),
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 5,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    '\$$price', // Use the provided price
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
                     ),
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.black54,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
+                  ),
+                  const SizedBox(
+                    height: 1.5,
+                  ),
+                  Text(
+                    'Model: $model',
+                    style: const TextStyle(
+                        color: Color(0xff868D94),
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w500,
+                        overflow: TextOverflow.ellipsis),
+                  ),
+                  Row(
+                    children: [
+                      const SizedBox(
+                        height: 22,
                       ),
-                    )
-                  ],
-                )
-              ],
+                      Container(
+                        height: 15,
+                        width: 15,
+                        decoration: const BoxDecoration(
+                          color: Color(0xffE41937),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Image.asset(
+                            'assets/check.png',
+                            height: 11.75,
+                            width: 11.75,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          color: Colors.black54,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
             const Spacer(),
             Column(

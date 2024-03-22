@@ -1,8 +1,15 @@
+import 'package:fa9ran/provider/location_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CheckOutPage extends StatelessWidget {
+class CheckOutPage extends ConsumerStatefulWidget {
   const CheckOutPage({super.key});
 
+  @override
+  _CheckOutPageState createState() => _CheckOutPageState();
+}
+
+class _CheckOutPageState extends ConsumerState<CheckOutPage> {
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -71,11 +78,11 @@ class CheckOutPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'El-sheikh Zayed,Cairo, Egypt',
-                        style: TextStyle(
+                      Text(
+                        ref.read(locationProvider).locationData['address'],
+                        style: const TextStyle(
                           color: Colors.black,
-                          fontSize: 15,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

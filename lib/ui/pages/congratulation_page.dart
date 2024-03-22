@@ -1,3 +1,5 @@
+import 'package:fa9ran/ui/pages/main_page.dart';
+import 'package:fa9ran/ui/pages/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -70,12 +72,12 @@ class CongratulationPage extends StatelessWidget {
               width: 320,
               child: TextButton(
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => SignInPage(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>const  SignInPage(),
+                    ),
+                  );
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: const Color(0xffE41937),

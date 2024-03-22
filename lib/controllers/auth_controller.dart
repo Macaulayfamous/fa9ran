@@ -5,32 +5,34 @@ import 'package:flutter/material.dart';
 class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<String> registerNewUser(String email, String password, confirmPassword,
-      BuildContext context) async {
+  Future<String> registerNewUser(
+    String email,
+    String password,
+    String firstName,
+    String lastName,
+    String phoneNumber,
+    BuildContext context,
+  ) async {
     String res = 'something went wrong';
 
     try {
       // we want to create the user first in the authentication tab and then in the cloud firestore
 
-      if (password == confirmPassword) {
-        UserCredential userCredential = await _auth
-            .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
-        await _firestore
-            .collection('buyers')
-            .doc(userCredential.user!.uid)
-            .set({
-          'buyerId': _auth.currentUser!.uid,
-          "fullName": '',
-          'email': email,
-          'firstName': '',
-          'lastName': '',
-          'profileImage': "",
-        });
-        res = 'success';
-      } else {
-        res = "confirm password does not match with password";
-      }
+      await _firestore.collection('buyers').doc(userCredential.user!.uid).set({
+        'buyerId': _auth.currentUser!.uid,
+        "fullName": '',
+        'email': email,
+        'firstName': firstName,
+        'lastName': lastName,
+        'profileImage': "",
+        'address': '',
+        'country': '',
+        'phoneNumber': phoneNumber,
+      });
+      res = 'success';
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         res = 'The password provided is too weak.';

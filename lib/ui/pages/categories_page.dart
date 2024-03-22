@@ -1,4 +1,5 @@
 import 'package:fa9ran/ui/pages/inner_screens/product_detail._screen.dart';
+import 'package:fa9ran/ui/pages/inner_screens/sub_category_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,7 +53,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
       stream: productStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return  const Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -79,7 +80,9 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return ProductDetailScreen(product: productData);
+                      return SubCategoryScreen(
+                        subCategory: productData['subcategoryName'],
+                      );
                     }));
                   },
                   child: Column(
@@ -94,7 +97,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         child: Text(
                           productData['subcategoryName'],
                           textAlign: TextAlign.center,
-                          style:const TextStyle(
+                          style: const TextStyle(
                             fontSize: 10,
                           ),
                         ),
@@ -118,7 +121,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
       stream: productStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return const  Text('Something went wrong');
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -153,10 +156,10 @@ class _CategoriesPageState extends State<CategoriesPage> {
                         productData['imageUrl'][0],
                       ),
                     ),
-                    trailing:const  Icon(
+                    trailing: const Icon(
                       Icons.arrow_forward_ios,
                     ),
-                    subtitle:  Text(
+                    subtitle: Text(
                       "\$${productData['productPrice']}",
                       style: GoogleFonts.quando(
                         color: Colors.red,
@@ -189,7 +192,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const  Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 // Get unique category categoryNames from the products collection

@@ -19,6 +19,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
   late String password;
 
+  late String firstName;
+
+  late String lastName;
+  late String phoneNumber;
+
   late String confirmPassword;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -32,7 +37,7 @@ class _SignUpPageState extends State<SignUpPage> {
     });
 
     String res = await _authController.registerNewUser(
-        email, confirmPassword, password, context);
+        email, password, firstName, lastName, phoneNumber, context);
     if (res == 'success') {
       Future.delayed(Duration.zero, () {
         Navigator.push(localContext, MaterialPageRoute(builder: (context) {
@@ -149,6 +154,192 @@ class _SignUpPageState extends State<SignUpPage> {
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(left: 16),
                       hintText: 'example@gmail.com',
+                      hintStyle: const TextStyle(
+                        color: Color(0xff808080),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Color(0xffE41937),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget firstNameInput() {
+      return AnimationConfiguration.staggeredList(
+        position: 2,
+        duration: const Duration(milliseconds: 500),
+        child: SlideAnimation(
+          verticalOffset: 50.0,
+          child: FadeInAnimation(
+            child: Container(
+              margin: const EdgeInsets.only(top: 15, right: 30, left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'First Name',
+                    style: TextStyle(
+                      color: Color(0xff000000),
+                      fontSize: 14.40,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter field';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      firstName = value;
+                    },
+                    cursorColor: Colors.red,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(left: 16),
+                      hintText: 'macaulay',
+                      hintStyle: const TextStyle(
+                        color: Color(0xff808080),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Color(0xffE41937),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget lastNameInput() {
+      return AnimationConfiguration.staggeredList(
+        position: 2,
+        duration: const Duration(milliseconds: 500),
+        child: SlideAnimation(
+          verticalOffset: 50.0,
+          child: FadeInAnimation(
+            child: Container(
+              margin: const EdgeInsets.only(top: 15, right: 30, left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Last  Name',
+                    style: TextStyle(
+                      color: Color(0xff000000),
+                      fontSize: 14.40,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter field';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      lastName = value;
+                    },
+                    cursorColor: Colors.red,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(left: 16),
+                      hintText: 'famous',
+                      hintStyle: const TextStyle(
+                        color: Color(0xff808080),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          color: Color(0xffE41937),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    Widget phoneInput() {
+      return AnimationConfiguration.staggeredList(
+        position: 2,
+        duration: const Duration(milliseconds: 500),
+        child: SlideAnimation(
+          verticalOffset: 50.0,
+          child: FadeInAnimation(
+            child: Container(
+              margin: const EdgeInsets.only(top: 15, right: 30, left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Phone Number',
+                    style: TextStyle(
+                      color: Color(0xff000000),
+                      fontSize: 14.40,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 6,
+                  ),
+                  TextFormField(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'please enter field';
+                      } else {
+                        return null;
+                      }
+                    },
+                    onChanged: (value) {
+                      phoneNumber = value;
+                    },
+                    cursorColor: Colors.red,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(left: 16),
+                      hintText: 'phone Number',
                       hintStyle: const TextStyle(
                         color: Color(0xff808080),
                         fontSize: 13,
@@ -513,8 +704,10 @@ class _SignUpPageState extends State<SignUpPage> {
               header(),
               title(),
               emailInput(),
+              firstNameInput(),
+              lastNameInput(),
+              phoneInput(),
               createInput(),
-              confirmInput(),
               tacButton(),
               line(),
               social(),

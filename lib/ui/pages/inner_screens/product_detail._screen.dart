@@ -4,6 +4,7 @@ import 'package:fa9ran/models/product_model.dart';
 import 'package:fa9ran/provider/product_provider.dart';
 import 'package:fa9ran/ui/pages/photo_detail.dart';
 import 'package:fa9ran/ui/pages/widgets/productTile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -72,14 +73,16 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
-                  return Text('Something went wrong');
+                  return const Text('Something went wrong');
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Text("Loading");
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
 
-                return Container(
+                return SizedBox(
                   height: 300,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -188,7 +191,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                                   0, description.length ~/ 2),
                         ),
                         if (!showFullDescription)
-                          TextSpan(
+                          const TextSpan(
                             text: '... ',
                             style: TextStyle(
                               color: Color(0xFF3C54EE),
@@ -198,7 +201,7 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                         if (!showFullDescription)
                           TextSpan(
                             text: 'See More',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xFF3C54EE),
                               fontWeight: FontWeight.bold,
                             ),
@@ -360,11 +363,19 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  widget.product['productName'],
-                  style: GoogleFonts.roboto(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 250,
+                    child: Text(
+                      widget.product['productName'],
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.roboto(
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
                 Container(
@@ -599,8 +610,6 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                 onPressed: isInCart
                     ? null
                     : () {
-                        print('ff');
-
                         _cartProvider.addProductToCart(
                           productName: widget.product['productName'],
                           productPrice: widget.product['productPrice'],
@@ -614,10 +623,17 @@ class _ProductDetailScreenState extends ConsumerState<ProductDetailScreen> {
                           storeId: widget.product['vendorId'],
                         );
 
-                        print(widget.product['productName']);
+                        if (kDebugMode) {
+                          print(widget.product['productName']);
+                        }
+
+                        // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //     content: Text(
+                        //         'You added ' + widget.product['productName'],)));
                       },
                 style: TextButton.styleFrom(
-                  backgroundColor: const Color(0xffE41937),
+                  backgroundColor:
+                      isInCart ? Colors.grey : const Color(0xffE41937),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(9),
                   ),

@@ -12,7 +12,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Timer(const Duration(milliseconds: 15), () {
+    Timer(const Duration(seconds: 300), () {
       Navigator.push(
           context,
           MaterialPageRoute(

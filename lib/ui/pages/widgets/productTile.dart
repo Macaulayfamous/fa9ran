@@ -161,12 +161,19 @@ class ProductItem extends StatelessWidget {
         const SizedBox(
           height: 4,
         ),
-        Text(
-          productData['productName'],
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 14,
-            fontWeight: FontWeight.w800,
+        Flexible(
+          child:  Container(
+            padding:  EdgeInsets.only(right: 13.0),
+            child:   Text(
+              productData['productName'],
+              overflow: TextOverflow.ellipsis,
+              style:  TextStyle(
+                fontSize: 13.0,
+                fontFamily: 'Roboto',
+                color: new Color(0xFF212121),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         const SizedBox(

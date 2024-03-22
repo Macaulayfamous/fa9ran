@@ -1,3 +1,4 @@
+import 'package:fa9ran/provider/user_provider.dart';
 import 'package:fa9ran/ui/pages/Notifications_page.dart';
 import 'package:fa9ran/ui/pages/cart_page.dart';
 import 'package:fa9ran/ui/pages/categories_page.dart';
@@ -11,12 +12,18 @@ import 'package:fa9ran/ui/pages/qr_page.dart';
 import 'package:fa9ran/ui/pages/security_page.dart';
 import 'package:fa9ran/ui/pages/sign_up_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerStatefulWidget {
   const ProfilePage({
     super.key,
   });
 
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends ConsumerState<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -35,28 +42,31 @@ class ProfilePage extends StatelessWidget {
         ),
         child: Row(
           children: [
-            const Expanded(
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hello Mostafa',
-                    style: TextStyle(
+                    ref
+                        .read(currentUserProvider)
+                        .currentUserData['firstName']
+                        .toUpperCase(),
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.w700),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 8,
                   ),
                   Text(
-                    'mostafagamalzakishaban@gmail.com',
-                    style: TextStyle(
+                    ref.read(currentUserProvider).currentUserData['email'],
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
                 ],
@@ -751,7 +761,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>  SignUpPage(),
+                    builder: (context) => SignUpPage(),
                   ),
                 );
               },
@@ -835,122 +845,6 @@ class ProfilePage extends StatelessWidget {
             details(),
             signOut(),
             contact(),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(20),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 5,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          unselectedLabelStyle: const TextStyle(
-            color: Color(0xff484C52),
-            fontSize: 11.5,
-            fontWeight: FontWeight.w400,
-          ),
-          selectedLabelStyle: const TextStyle(
-            color: Color(0xffE41937),
-            fontSize: 13.5,
-            fontWeight: FontWeight.w700,
-          ),
-          selectedItemColor: const Color(0xffE41937),
-          unselectedItemColor: const Color(0xff484C52),
-          type: BottomNavigationBarType.fixed,
-          currentIndex: 4,
-          backgroundColor: Colors.white,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  'assets/home1.png',
-                  width: 67.5,
-                  height: 24,
-                ),
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CategoriesPage(),
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  'assets/Palette1.png',
-                  height: 24,
-                  width: 24,
-                ),
-              ),
-              label: 'categories',
-            ),
-            BottomNavigationBarItem(
-              icon: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FashionPage(),
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  'assets/brand 1.png',
-                  height: 24,
-                  width: 60,
-                ),
-              ),
-              label: 'Fashion',
-            ),
-            BottomNavigationBarItem(
-              icon: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CartPage(),
-                    ),
-                  );
-                },
-                child: Image.asset(
-                  'assets/Cart1.png',
-                  height: 24,
-                  width: 24,
-                ),
-              ),
-              label: 'Cart',
-            ),
-            BottomNavigationBarItem(
-              icon: Image.asset(
-                'assets/User1.png',
-                height: 24,
-                width: 24,
-                color: const Color(0xffE41937),
-              ),
-              label: 'Profile',
-            ),
           ],
         ),
       ),
